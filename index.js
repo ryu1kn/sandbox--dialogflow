@@ -1,7 +1,12 @@
 const {google} = require('googleapis');
 
-async function main () {
-  listMajors(await createAuth());
+async function main() {
+  const sheet = {
+    id: process.argv[2],
+    range: 'Sheet1!A:B'
+  };
+  console.log(`Accessing ${sheetUrl(sheet.id)}`);
+  printRange(await createAuth(), sheet);
 }
 
 function createAuth() {
@@ -11,23 +16,21 @@ function createAuth() {
   return auth.getClient();
 }
 
-/**
- * Prints the names and majors of students in a sample spreadsheet:
- * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
- */
-async function listMajors(auth) {
+function sheetUrl(sheetId) {
+  return `https://docs.google.com/spreadsheets/d/${sheetId}/view`;
+}
+
+async function printRange(auth, sheet) {
   const sheets = google.sheets({version: 'v4', auth});
   const res = await sheets.spreadsheets.values.get({
-    spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-    range: 'Class Data!A2:E',
+    spreadsheetId: sheet.id,
+    range: sheet.range,
   });
 
-  console.log(JSON.stringify(res))
   const rows = res.data.values;
   if (rows.length) {
-    console.log('Name, Major:');
     rows.map((row) => {
-      console.log(`${row[0]}, ${row[4]}`);
+      console.log(row.join(', '))
     });
   } else {
     console.log('No data found.');
