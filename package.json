@@ -1,0 +1,8 @@
+{
+  "name": "sandbox--dialogflow",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "googleapis": "48.0.0"
+  }
+}
