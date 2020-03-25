@@ -3,7 +3,7 @@ const {google} = require('googleapis');
 async function main() {
   const sheet = {
     id: process.argv[2],
-    range: 'Sheet1!A:B'
+    range: process.argv[3]
   };
   console.log(`Accessing ${sheetUrl(sheet.id)}`);
   printRange(await createAuth(), sheet);
@@ -28,13 +28,9 @@ async function printRange(auth, sheet) {
   });
 
   const rows = res.data.values;
-  if (rows.length) {
-    rows.map((row) => {
-      console.log(row.join(', '))
-    });
-  } else {
-    console.log('No data found.');
-  }
+  rows.map((row) => {
+    console.log(row.join(', '))
+  });
 }
 
 main().catch(e => console.error(e.stack));
