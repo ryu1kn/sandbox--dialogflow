@@ -5,7 +5,7 @@ async function main() {
     id: process.argv[2],
     range: process.argv[3]
   };
-  console.log(`Accessing ${sheetUrl(sheet.id)}`);
+  console.log(`---> Accessing ${sheetUrl(sheet.id)}\n`);
   printRange(await createAuth(), sheet);
 }
 
