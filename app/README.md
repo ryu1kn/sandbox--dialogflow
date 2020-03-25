@@ -17,14 +17,14 @@ For now, it's just Google Sheets API sandbox.
 
     ```sh
     export GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json
-    node index.js <sheet id> <range on sheet>
+    node local-run <sheet id> <range on sheet>
     ```
 
 For example, there is a public sheet used in Google Sheets' doc, with this sheet,
 you can do the following to print the contents on the sheet:
 
 ```sh
-$ node index.js '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms' 'Class Data!A2:E'
+$ node local-run '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms' 'Class Data!A2:E'
 ---> Accessing https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/view
 
 Alexandra, Female, 4. Senior, CA, English

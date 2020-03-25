@@ -1,12 +1,12 @@
 const {google} = require('googleapis');
 
-async function main() {
+async function main(req) {
   const sheet = {
-    id: process.argv[2],
-    range: process.argv[3]
+    id: req.query.sheetId,
+    range: req.query.range
   };
   console.log(`---> Accessing ${sheetUrl(sheet.id)}\n`);
-  printRange(await createAuth(), sheet);
+  return readSheet(await createAuth(), sheet);
 }
 
 function createAuth() {
@@ -20,7 +20,7 @@ function sheetUrl(sheetId) {
   return `https://docs.google.com/spreadsheets/d/${sheetId}/view`;
 }
 
-async function printRange(auth, sheet) {
+async function readSheet(auth, sheet) {
   const sheets = google.sheets({version: 'v4', auth});
   const res = await sheets.spreadsheets.values.get({
     spreadsheetId: sheet.id,
@@ -28,9 +28,17 @@ async function printRange(auth, sheet) {
   });
 
   const rows = res.data.values;
-  rows.map((row) => {
-    console.log(row.join(', '))
-  });
+  return rows.map(row => row.join(', ')).join('\n');
 }
 
-main().catch(e => console.error(e.stack));
+exports.handler = (req, res) => {
+  Promise.resolve()
+    .then(() => main(req))
+    .then(result => {
+      res.status(200).send(result);
+    })
+    .catch(e => {
+      console.error(e.stack);
+      res.status(500).send('Internal server error');
+    });
+};

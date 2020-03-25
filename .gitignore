@@ -1,5 +1,6 @@
 *.tfstate
 *.tfstate.*
 .terraform
+/.idea
 /app/node_modules
 __*
