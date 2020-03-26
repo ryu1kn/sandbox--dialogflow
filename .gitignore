@@ -4,3 +4,4 @@
 /.idea
 /app/node_modules
 __*
+node_modules

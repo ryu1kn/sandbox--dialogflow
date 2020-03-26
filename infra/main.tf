@@ -3,6 +3,7 @@ terraform {
 
   required_providers {
     google = "3.14.0"
+    google-beta = "3.14.0"
   }
 }
 
@@ -19,6 +20,12 @@ provider "google" {
   region = "asia-east2"
 }
 
+provider "google-beta" {
+  access_token = var.access_token
+  project = var.project_id
+  region = var.region
+}
+
 locals {
   function_name = "my-function"
 }
@@ -30,6 +37,13 @@ resource "google_project_service" "api_cloudfunctions" {
 
 resource "google_project_service" "api_sheets" {
   service = "sheets.googleapis.com"
+  disable_dependent_services = true
+}
+
+resource "google_project_service" "api_dialogflow" {
+  provider = google-beta
+
+  service = "dialogflow.googleapis.com"
   disable_dependent_services = true
 }
 
