@@ -1,13 +1,21 @@
 const {google} = require('googleapis');
+const {dialogflow} = require('actions-on-google');
 
-async function main(req) {
-  const sheet = {
-    id: req.query.sheetId,
-    range: req.query.range
-  };
-  console.log(`---> Accessing ${sheetUrl(sheet.id)}\n`);
-  return readSheet(await createAuth(), sheet);
-}
+const PEOPLE_SHEET_ID = '1Qzp74ZnEY0rGcnr37MBCQp8yq5jUbUcc6CPHj-hJTcA'
+const PEOPLE_SHEET_RANGE = 'People!A2:B'
+
+const app = dialogflow({debug: true})
+
+console.log(`---> Read people data from ${sheetUrl(PEOPLE_SHEET_ID)}`)
+
+app.intent('Greeting', async (conv, {name}) => {
+  const people = await readSheet(await createAuth())
+  const hobby = people
+      .filter(([n]) => n === name)
+      .map(([n, hobby]) => hobby)
+
+  conv.close(`Hello ${name}! I heard you like ${hobby}!`)
+})
 
 function createAuth() {
   const auth = new google.auth.GoogleAuth({
@@ -20,25 +28,13 @@ function sheetUrl(sheetId) {
   return `https://docs.google.com/spreadsheets/d/${sheetId}/view`;
 }
 
-async function readSheet(auth, sheet) {
+async function readSheet(auth) {
   const sheets = google.sheets({version: 'v4', auth});
   const res = await sheets.spreadsheets.values.get({
-    spreadsheetId: sheet.id,
-    range: sheet.range,
+    spreadsheetId: PEOPLE_SHEET_ID,
+    range: PEOPLE_SHEET_RANGE
   });
-
-  const rows = res.data.values;
-  return rows.map(row => row.join(', ')).join('\n');
+  return res.data.values;
 }
 
-exports.handler = (req, res) => {
-  Promise.resolve()
-    .then(() => main(req))
-    .then(result => {
-      res.status(200).send(result);
-    })
-    .catch(e => {
-      console.error(e.stack);
-      res.status(500).send('Internal server error');
-    });
-};
+exports.handler = app

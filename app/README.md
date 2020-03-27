@@ -32,6 +32,13 @@ Andrew, Male, 1. Freshman, SD, Math
 ...
 ```
 
+## Note
+
+Unlike AWS Lambda, you don't need to package up `npm_modules` directory
+when uploading your Cloud Function code to a storage bucket.
+
+Make sure you bundle a lock file.
+
 ## References
 
 * [Node.js Quickstart - Google Sheets API v4](https://developers.google.com/sheets/api/quickstart/nodejs)
