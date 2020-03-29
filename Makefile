@@ -13,7 +13,7 @@ tf-foundation.%: $(abspath config.json)
 	cd infra/foundation && terraform init && terraform $* -var-file $< -auto-approve
 
 .PHONY: tf.%
-tf.%: $(abspath config.json) $(abspath secrets/encrypted-auth-key.txt) $(abspath __function.zip)
+tf.%: $(abspath config.json) $(abspath secrets/auth-key.enc.txt) $(abspath __function.zip)
 	cd infra/system && terraform init && \
 		terraform $* -var-file "$<" \
 			-var "encrypted_auth_key=$$(< $(word 2,$^))" -auto-approve \
