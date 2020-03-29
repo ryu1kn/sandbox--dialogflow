@@ -1,12 +1,11 @@
 parent_dir := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
 
-export TF_VAR_access_token := $(shell gcloud auth print-access-token)
-export TF_VAR_project_id := $(shell gcloud config get-value project)
-export TF_VAR_region := australia-southeast1
-
 config_path := $(abspath config.json)
 
 get-config = $(shell jq -r '$1' $(config_path))
+
+export TF_VAR_access_token := $(shell gcloud auth print-access-token)
+export TF_VAR_project_id := $(shell gcloud config get-value project)
 
 .PHONY: enable-billing
 enable-billing:
