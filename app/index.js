@@ -34,8 +34,10 @@ app.intent('Greeting', async (conv, {name}) => {
   const hobby = people
       .filter(([n]) => n === name)
       .map(([n, hobby]) => hobby)
-
-  conv.close(`Hello ${name}! I heard you like ${hobby}!`)
+  if (hobby.length !== 0)
+    conv.close(`Hello ${name}! I heard you like ${hobby[0]}!`)
+  else
+    conv.close(`Hello ${name}! I like chatting!`)
 })
 
 function createAuth() {
