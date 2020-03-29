@@ -54,7 +54,7 @@ resource "google_storage_bucket" "bucket" {
 resource "google_storage_bucket_object" "archive" {
   name   = "__function.zip"
   bucket = google_storage_bucket.bucket.name
-  source = "../__function.zip"
+  source = var.packaged_function_path
 }
 
 resource "google_service_account" "service_account" {
@@ -64,8 +64,13 @@ resource "google_service_account" "service_account" {
 
 // // Cannot create this because of the issue introduced in 2.13
 // // https://github.com/terraform-providers/terraform-provider-google/issues/4276
-//resource "google_project_iam_member" "project" {
+//resource "google_project_iam_member" "viewer" {
 //  role    = "roles/viewer"
+//  member  = "serviceAccount:${google_service_account.service_account.email}"
+//}
+//
+//resource "google_project_iam_member" "kms_key_user" {
+//  role    = "roles/cloudkms.cryptoKeyDecrypter"
 //  member  = "serviceAccount:${google_service_account.service_account.email}"
 //}
 
@@ -82,6 +87,9 @@ resource "google_cloudfunctions_function" "function" {
   trigger_http          = true
   timeout               = 10
   entry_point           = "handler"
+  environment_variables = {
+    ENCRYPTED_AUTH_KEY = var.encrypted_auth_key
+  }
 }
 
 # IAM entry for a single user to invoke the function
