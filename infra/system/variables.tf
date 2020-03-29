@@ -26,3 +26,11 @@ variable "kms_key_ring" {
 variable "kms_key_name" {
   type = string
 }
+
+variable "people_sheet_id" {
+  type = string
+}
+
+variable "people_sheet_range" {
+  type = string
+}

@@ -1,5 +1,7 @@
 {
   "region": "australia-southeast1",
   "kms_key_ring": "sandbox--dialogflow",
-  "kms_key_name": "sandbox--dialogflow-webhook"
+  "kms_key_name": "sandbox--dialogflow-webhook",
+  "people_sheet_id": "1Qzp74ZnEY0rGcnr37MBCQp8yq5jUbUcc6CPHj-hJTcA",
+  "people_sheet_range": "People!A2:B"
 }

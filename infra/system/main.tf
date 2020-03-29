@@ -64,11 +64,6 @@ resource "google_service_account" "service_account" {
 
 // // Cannot create this because of the issue introduced in 2.13
 // // https://github.com/terraform-providers/terraform-provider-google/issues/4276
-//resource "google_project_iam_member" "viewer" {
-//  role    = "roles/viewer"
-//  member  = "serviceAccount:${google_service_account.service_account.email}"
-//}
-//
 //resource "google_project_iam_member" "kms_key_user" {
 //  role    = "roles/cloudkms.cryptoKeyDecrypter"
 //  member  = "serviceAccount:${google_service_account.service_account.email}"
@@ -93,6 +88,8 @@ resource "google_cloudfunctions_function" "function" {
     KMS_KEY_NAME = var.kms_key_name
     KMS_KEY_REGION = var.region
     KMS_KEY_PROJECT = var.project_id
+    PEOPLE_SHEET_ID = var.people_sheet_id
+    PEOPLE_SHEET_RANGE = var.people_sheet_range
   }
 }
 

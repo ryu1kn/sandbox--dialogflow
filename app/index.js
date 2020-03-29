@@ -1,8 +1,8 @@
 const {google} = require('googleapis');
 const {dialogflow} = require('actions-on-google');
 
-const PEOPLE_SHEET_ID = '1Qzp74ZnEY0rGcnr37MBCQp8yq5jUbUcc6CPHj-hJTcA'
-const PEOPLE_SHEET_RANGE = 'People!A2:B'
+const PEOPLE_SHEET_ID = process.env.PEOPLE_SHEET_ID
+const PEOPLE_SHEET_RANGE = process.env.PEOPLE_SHEET_RANGE
 const KMS_KEY_REGION = process.env.KMS_KEY_REGION;
 const KMS_KEY_PROJECT = process.env.KMS_KEY_PROJECT;
 const KMS_KEY_RING = process.env.KMS_KEY_RING;
