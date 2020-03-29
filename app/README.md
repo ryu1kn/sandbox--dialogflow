@@ -45,3 +45,5 @@ Make sure you bundle a lock file.
 * [Google APIs Node.js Client, API Reference Documentation](https://googleapis.dev/nodejs/googleapis/latest/index.html)
 * [How to access Google Spreadsheets with a service account credentials? - StackOverflow](https://stackoverflow.com/questions/27067825/how-to-access-google-spreadsheets-with-a-service-account-credentials)
 * [Connecting to Google Sheets](https://www.dundas.com/support/learning/documentation/connect-to-data/how-to/connecting-to-google-sheets)
+* [Using Environment Variables - Cloud Functions > Documentation](https://cloud.google.com/functions/docs/env-var)
+* [dialogflow / DialogflowConversation /](https://actions-on-google.github.io/actions-on-google-nodejs/classes/dialogflow.dialogflowconversation.html#intent)

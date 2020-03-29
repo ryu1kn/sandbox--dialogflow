@@ -3,15 +3,17 @@ const {dialogflow} = require('actions-on-google');
 
 const PEOPLE_SHEET_ID = '1Qzp74ZnEY0rGcnr37MBCQp8yq5jUbUcc6CPHj-hJTcA'
 const PEOPLE_SHEET_RANGE = 'People!A2:B'
-const KMS_KEY_REGION = 'australia-southeast1';
-const KMS_KEY_PROJECT = 'sandbox--gcp';
-const KMS_KEY_RING = 'sandbox--dialogflow';
-const KMS_KEY_NAME = 'sandbox--dialogflow-webhook';
+const KMS_KEY_REGION = process.env.KMS_KEY_REGION;
+const KMS_KEY_PROJECT = process.env.KMS_KEY_PROJECT;
+const KMS_KEY_RING = process.env.KMS_KEY_RING;
+const KMS_KEY_NAME = process.env.KMS_KEY_NAME;
 
 const app = dialogflow({debug: true})
 const cloudKms = google.cloudkms({version: 'v1'}).projects.locations.keyRings.cryptoKeys
 
-console.info(`---> Read people data from ${sheetUrl(PEOPLE_SHEET_ID)}`)
+const info = (...args) => { console.info('---> ', args.map(v => v.toString()).join(' ')) }
+
+info('Read people data from', sheetUrl(PEOPLE_SHEET_ID))
 
 const authSdk = async () => {
   google.options({
@@ -72,6 +74,7 @@ exports.handler = async (req, res) => {
       res.status(403).send('Not authorised')
     }
   } catch (e) {
+    console.error(e.stack)
     res.status(500).send(e.stack)
   }
 }

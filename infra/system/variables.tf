@@ -18,3 +18,11 @@ variable "packaged_function_path" {
 variable "encrypted_auth_key" {
   type = string
 }
+
+variable "kms_key_ring" {
+  type = string
+}
+
+variable "kms_key_name" {
+  type = string
+}
