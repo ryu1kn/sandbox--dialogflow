@@ -46,14 +46,6 @@ The webhook runs as a Cloud Function.
 
     Memo `function_endpoint` URL in the output.
 
-1. Open GCP console and assign webhook app's service account the following role.
-
-    ```
-    Cloud KMS CryptoKey Decrypter
-    ```
-
-   This step will be removed once [this issue][1] is resolved.
-
 1. Deploy Dialogflow agent
 
     ```sh

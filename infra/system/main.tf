@@ -4,6 +4,7 @@ terraform {
   required_providers {
     google = "3.14.0"
     google-beta = "3.14.0"
+    null = "2.1.2"
   }
 }
 
@@ -68,6 +69,28 @@ resource "google_service_account" "service_account" {
 //  role    = "roles/cloudkms.cryptoKeyDecrypter"
 //  member  = "serviceAccount:${google_service_account.service_account.email}"
 //}
+resource "null_resource" "grant_kmd_decrypt_role" {
+  triggers = {
+    service_account_email = google_service_account.service_account.email
+  }
+
+  provisioner "local-exec" {
+    command = <<-EOF
+      gcloud projects add-iam-policy-binding "${var.project_id}" \
+        --member "serviceAccount:${google_service_account.service_account.email}" \
+        --role roles/cloudkms.cryptoKeyDecrypter
+    EOF
+  }
+
+  provisioner "local-exec" {
+    when    = destroy
+    command = <<-EOF
+      gcloud projects remove-iam-policy-binding "${var.project_id}" \
+        --member "serviceAccount:${google_service_account.service_account.email}" \
+        --role roles/cloudkms.cryptoKeyDecrypter
+    EOF
+  }
+}
 
 resource "google_cloudfunctions_function" "function" {
   provider = google.hong_kong
