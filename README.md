@@ -46,21 +46,11 @@ The webhook runs as a Cloud Function.
 
     Memo `function_endpoint` URL in the output.
 
-1. Deploy Dialogflow agent
+1. Deploy Dialogflow agent. You need a service account key that has Dialogflow Admin & KMS Decrypter role.
 
     ```sh
     make agent/deploy
     ```
-
-1. Open Dialogflow agent, go to **Fulfillment** page, enable webhook, and set
-
-    * **URL**: Fill `function_endpoint` URL given when deploying webhook
-    * **HEADERS**: `Authorization` header with `Basic plaintext-auth-key`
-
-    and hit **SAVE** button at the bottom.
-
-1. Go to **Intents** page and create intents, at the bottom of an intent page,
-   you find **Fulfillment** section, choose **Enable webhook call for this intent**.
 
 1. Now use Dialogflow, see your bot knows whose hobby is what!
 

@@ -26,6 +26,7 @@ $(abspath __function.zip): $(wildcard app/*)
 	cd app && ./build.sh
 
 .PHONY: deploy/agent
+agent/deploy: GOOGLE_APPLICATION_CREDENTIALS = $(abspath __dialogflow-agent-maker-key.json)
 agent/deploy:
 	cd agent && yarn && node create-agent
 
