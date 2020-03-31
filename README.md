@@ -12,6 +12,7 @@ The webhook runs as a Cloud Function.
 * `gcloud` is configured to the correct project: `gcloud config set project <your-project>`
 * `jq`
 * `yarn`
+* Node.js v10+
 
 ## Setup
 
@@ -49,7 +50,7 @@ The webhook runs as a Cloud Function.
 1. Deploy Dialogflow agent. You need a service account key that has Dialogflow Admin & KMS Decrypter role.
 
     ```sh
-    make agent/deploy
+    make agent/deploy WEBHOOK_URL="<function_endpoint you memoed>"
     ```
 
 1. Now use Dialogflow, see your bot knows whose hobby is what!
@@ -59,7 +60,6 @@ For more information, start from [Makefile](./Makefile).
 ## TODOs
 
 * Reduce manual setup steps
-* Provide intents
 * Convert config to YAML to allow comments in config
 * Give config file path to terraform to avoid [this upcoming change][2],
   or introduce [Terragrunt][3].

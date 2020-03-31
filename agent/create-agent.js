@@ -11,7 +11,7 @@ const dialogflowClient = new dialogflow.v2.AgentsClient()
 
 const main = async () => {
   const webhookAuthKey = await decrypt(config.encrypted_webhook_auth_key)
-  await buildAgentDefiniton(webhookAuthKey)
+  await buildAgentDefiniton(process.env.WEBHOOK_URL, webhookAuthKey)
   await zipFolder(dehydratedPath(), '__agent.zip')
   await importAgent()
 }
@@ -25,12 +25,12 @@ const decrypt = async cipherText => {
 const decodeBase64 = base64String =>
     Buffer.from(base64String, 'base64').toString('utf8')
 
-const buildAgentDefiniton = async webhookAuthKey => {
+const buildAgentDefiniton = async (webhookUrl, webhookAuthKey) => {
   await fsExtra.copy(templatePath('intents'), dehydratedPath('intents'))
   await fsExtra.copy(templatePath('package.json'), dehydratedPath('package.json'))
   const agentText = await fs.readFile(templatePath('agent.json'), 'utf8')
   const dehydratedAgentText = agentText
-      .replace('__WEBHOOK_URL__', 'https://asia-east2-sandbox--gcp.cloudfunctions.net/my-function')
+      .replace('__WEBHOOK_URL__', webhookUrl)
       .replace('__WEBHOOK_AUTH_HEADER__', `Basic ${webhookAuthKey}`)
   await fs.writeFile(dehydratedPath('agent.json'), dehydratedAgentText, 'utf8')
 }
