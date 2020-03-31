@@ -1,8 +1,10 @@
 # Create Agent
 
+Creates a Dialogflow agent with intents/response already imported.
+
 ## Usage
 
-Create an agent config file as `agent-config.js` in the same directory, then:
+Create an agent config file as `config.js` in the same directory, then:
 
 ```sh
 export GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json

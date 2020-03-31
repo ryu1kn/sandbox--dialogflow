@@ -7,7 +7,6 @@ For now, it's just Google Sheets API sandbox.
 
 1. Enable Sheets API and create a service account that is going to access Google Sheet.
    1. Enable Sheets API on GCP console.
-   1. Create an service account and give a permission to use the Sheets API.
    1. Download the JSON key of the service account.
 1. Allow the service account to access the Sheet
    1. Open the sheet, select "Share" button on the top-right corner.
@@ -18,6 +17,13 @@ For now, it's just Google Sheets API sandbox.
     ```sh
     export GOOGLE_APPLICATION_CREDENTIALS=/path/to/key.json
     node local-run <sheet id> <range on sheet>
+    ```
+
+    You can use your user's temporary credentials to run the script locally.
+
+    ```sh
+    gcloud auth application-default login
+    export GOOGLE_APPLICATION_CREDENTIALS=~/.config/gcloud/application_default_credentials.json
     ```
 
 For example, there is a public sheet used in Google Sheets' doc, with this sheet,
@@ -37,7 +43,7 @@ Andrew, Male, 1. Freshman, SD, Math
 Unlike AWS Lambda, you don't need to package up `npm_modules` directory
 when uploading your Cloud Function code to a storage bucket.
 
-Make sure you bundle a lock file.
+But, make sure you bundle a lock file.
 
 ## References
 

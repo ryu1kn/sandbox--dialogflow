@@ -2,6 +2,13 @@
 # yarn lockfile v1
 
 
+"@google-cloud/kms@^1.6.3":
+  version "1.6.3"
+  resolved "https://registry.yarnpkg.com/@google-cloud/kms/-/kms-1.6.3.tgz#bdfe617e813f940018fb50e51e4025af68c3f885"
+  integrity sha512-355OGw1bCI4MqtXjLO0yWCm6itGoaAMfbj7GoUHilG+LIumK+F28kD/pMDMXn30jlnaN07XH1EaL7bu61BIlgQ==
+  dependencies:
+    google-gax "^1.7.5"
+
 "@grpc/grpc-js@^0.6.18":
   version "0.6.18"
   resolved "https://registry.yarnpkg.com/@grpc/grpc-js/-/grpc-js-0.6.18.tgz#ba3b3dfef869533161d192a385412a4abd0db127"
