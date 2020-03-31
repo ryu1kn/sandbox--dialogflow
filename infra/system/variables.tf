@@ -15,7 +15,7 @@ variable "packaged_function_path" {
   type = string
 }
 
-variable "encrypted_auth_key" {
+variable "encrypted_webhook_auth_key" {
   type = string
 }
 

@@ -106,7 +106,7 @@ resource "google_cloudfunctions_function" "function" {
   timeout               = 10
   entry_point           = "handler"
   environment_variables = {
-    ENCRYPTED_AUTH_KEY = var.encrypted_auth_key
+    ENCRYPTED_AUTH_KEY = var.encrypted_webhook_auth_key
     KMS_KEY_RING = var.kms_key_ring
     KMS_KEY_NAME = var.kms_key_name
     KMS_KEY_REGION = var.region

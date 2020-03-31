@@ -5,7 +5,6 @@ config_path := $(abspath config.json)
 get-config = $(shell jq -r '$1' $(config_path))
 
 export TF_VAR_access_token := $(shell gcloud auth print-access-token)
-export TF_VAR_project_id := $(shell gcloud config get-value project)
 
 .PHONY: enable-billing
 enable-billing:
@@ -13,14 +12,14 @@ enable-billing:
 
 .PHONY: tf-foundation/%
 tf-foundation/%: $(config_path)
-	cd infra/foundation && terraform init && terraform $* -var-file $< -auto-approve
+	cd infra/foundation && terraform init && terraform $* -auto-approve -var-file $<
 
 .PHONY: tf-system/%
-tf-system/%: $(config_path) $(abspath secrets/auth-key.enc.txt) $(abspath __function.zip)
+tf-system/%: $(config_path) $(abspath __function.zip)
 	cd infra/system && terraform init && \
-		terraform $* -var-file "$<" \
-			-var "encrypted_auth_key=$$(< $(word 2,$^))" -auto-approve \
-			-var "packaged_function_path=$(word 3,$^)"
+		terraform $* -auto-approve \
+			-var-file "$<" \
+			-var "packaged_function_path=$(word 2,$^)"
 
 $(abspath __function.zip): $(wildcard app/*)
 	cd app && ./build.sh
@@ -30,13 +29,13 @@ agent/deploy: GOOGLE_APPLICATION_CREDENTIALS = $(abspath __dialogflow-agent-make
 agent/deploy:
 	cd agent && yarn && node create-agent
 
-secrets/auth-key.enc.txt:
-	[[ -n "$$PLAINTEXT_AUTH_KEY" ]]
-	printf "$$PLAINTEXT_AUTH_KEY" \
+.PHONY: encrypt
+encrypt:
+	@[[ -n "$$PLAINTEXT_AUTH_KEY" ]]
+	@printf "$$PLAINTEXT_AUTH_KEY" \
 	| gcloud kms encrypt \
 		--keyring $(call get-config,.kms_key_ring) --key $(call get-config,.kms_key_name) \
 		--plaintext-file - \
 		--ciphertext-file - \
-		--location $(TF_VAR_region) \
-	| base64 \
-	> $@
+		--location $(call get-config,.region) \
+	| base64

@@ -10,7 +10,7 @@ const kmsClient = new kms.KeyManagementServiceClient()
 const dialogflowClient = new dialogflow.v2.AgentsClient()
 
 const main = async () => {
-  const webhookAuthKey = await decrypt(config.encryptedWebhookAuthKey)
+  const webhookAuthKey = await decrypt(config.encrypted_webhook_auth_key)
   await buildAgentDefiniton(webhookAuthKey)
   await zipFolder(dehydratedPath(), '__agent.zip')
   await importAgent()
@@ -49,5 +49,4 @@ const importAgent = async () => {
   await operation.promise()
 }
 
-main().then(result => { console.log(result) })
-  .catch(e => { console.error(e); process.exit(1) })
+main().catch(e => { setTimeout(() => { throw e }, 0) })

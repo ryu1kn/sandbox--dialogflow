@@ -32,10 +32,10 @@ The webhook runs as a Cloud Function.
     make tf-foundation/apply
     ```
 
-1. Create an encrypted webhook auth key
+1. Update config with the encrypted webhook auth key (with key `encrypted_webhook_auth_key`)
 
     ```sh
-    make secrets/auth-key.enc.txt PLAINTEXT_AUTH_KEY='plaintext-auth-key'
+    $ make encrypt PLAINTEXT_AUTH_KEY='plaintext-auth-key'
     ```
 
 1. Deploy webhook
