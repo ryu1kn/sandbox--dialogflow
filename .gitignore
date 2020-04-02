@@ -1,3 +1,4 @@
+*.iml
 *.tfstate
 *.tfstate.*
 .terraform
@@ -5,3 +6,4 @@
 /app/node_modules
 __*
 node_modules
+venv/
