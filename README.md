@@ -4,6 +4,15 @@ Setup Dialogflow chatbot that asks a webhook to provide response.
 
 The webhook runs as a Cloud Function.
 
+## Contents
+
+This repository has following directory:
+
+* **agent**: Spins up a new Dialogflow agent with intents already imported
+* **app**: Webhook code that Dialogflow consults how it should respond to end users
+* **infra**: Infra code (except Dialogflow agent, that is looked after by the contents under **agent** directory)
+* **conversation-history**: Code to parse conversation history for later analysis
+
 ## Prerequisites
 
 * terraform
