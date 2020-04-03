@@ -20,6 +20,12 @@ virtualenv venv     # This directory is git-ignored
 poetry install
 ```
 
+## Test
+
+```sh
+poetry run pytest tests
+```
+
 ## Usage
 
 ```sh
