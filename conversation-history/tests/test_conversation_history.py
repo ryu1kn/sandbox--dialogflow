@@ -9,6 +9,10 @@ def test_number():
     assert parser.parse('4') == 4
 
 
+def test_number_negative():
+    assert parser.parse('-4') == -4
+
+
 def test_object_empty():
     assert parser.parse('{}') == {}
 

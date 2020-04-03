@@ -30,14 +30,14 @@ class TreeToJson(lark.Transformer):
     true = lambda self, _: True
     false = lambda self, _: False
 
-    def CNAME(self, c):
-        return c[0:]
+    def CNAME(self, v):
+        return v.value
 
-    def ESCAPED_STRING(self, s):
-        return json.loads(s.value)
+    def ESCAPED_STRING(self, v):
+        return json.loads(v.value)
 
     def SIGNED_NUMBER(self, v):
-        return float(v) * (-1 if v.startswith('-') else 1)
+        return float(v.value)
 
     def value(self, v):
         return v[0]
@@ -46,8 +46,8 @@ class TreeToJson(lark.Transformer):
     pair = tuple
     pairs = dict
 
-    def dict(self, d):
-        return d[0]
+    def dict(self, v):
+        return v[0]
 
 
 def parse(log_entry):
