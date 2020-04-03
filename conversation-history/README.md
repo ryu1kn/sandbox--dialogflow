@@ -23,7 +23,7 @@ poetry install
 ## Usage
 
 ```sh
-python main.py
+python main.py sample-log-entry.txt
 ```
 
 ## References
