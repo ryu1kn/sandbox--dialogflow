@@ -1,4 +1,5 @@
 import lark
+import json
 
 _parser = lark.Lark(r"""
     value: dict
@@ -33,7 +34,7 @@ class TreeToJson(lark.Transformer):
         return c[0:]
 
     def ESCAPED_STRING(self, s):
-        return s[1:-1]
+        return json.loads(s.value)
 
     def SIGNED_NUMBER(self, v):
         return float(v) * (-1 if v.startswith('-') else 1)

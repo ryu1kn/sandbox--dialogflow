@@ -1,8 +1,4 @@
-from conversation_history import __version__, parser
-
-
-def test_version():
-    assert __version__ == '0.1.0'
+from conversation_history import parser
 
 
 def test_string():
