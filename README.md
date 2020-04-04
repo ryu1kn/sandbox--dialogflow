@@ -54,12 +54,10 @@ This repository has following directory:
     make tf-system/apply
     ```
 
-    Memo `function_endpoint` URL in the output.
-
 1. Deploy Dialogflow agent. You need a service account key that has Dialogflow Admin & KMS Decrypter role.
 
     ```sh
-    make agent/deploy WEBHOOK_URL="<function_endpoint you memoed>"
+    make agent/deploy
     ```
 
 1. Now use Dialogflow, see your bot knows whose hobby is what!

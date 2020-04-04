@@ -12,14 +12,20 @@ enable-billing:
 
 .PHONY: tf-foundation/%
 tf-foundation/%: $(config_path)
-	cd infra/foundation && terraform init && terraform $* -auto-approve -var-file $<
+	cd infra/foundation && terraform init 1>&2 \
+	&& terraform $* \
+		$(if $(filter apply deploy,$*),-auto-approve -var-file $<) \
+		$(if $(filter output,$*),-json)
 
 .PHONY: tf-system/%
 tf-system/%: $(config_path) $(abspath __function.zip)
-	cd infra/system && terraform init && \
-		terraform $* -auto-approve \
+	@cd infra/system && terraform init 1>&2 \
+	&& terraform $* \
+		$(if $(filter apply destroy,$*),\
+			-auto-approve \
 			-var-file "$<" \
-			-var "packaged_function_path=$(word 2,$^)"
+			-var "packaged_function_path=$(word 2,$^)") \
+		$(if $(filter output,$*),-json)
 
 $(abspath __function.zip): $(wildcard app/*)
 	cd app && ./build.sh
@@ -27,7 +33,8 @@ $(abspath __function.zip): $(wildcard app/*)
 .PHONY: deploy/agent
 agent/deploy: GOOGLE_APPLICATION_CREDENTIALS = $(abspath __dialogflow-agent-maker-key.json)
 agent/deploy:
-	cd agent && yarn && node create-agent
+	export WEBHOOK_URL=$$($(MAKE) tf-system/output | jq -r .function_endpoint.value) \
+	&& cd agent && yarn && node create-agent
 
 .PHONY: encrypt
 encrypt:
