@@ -29,7 +29,7 @@ make test
 ## Usage
 
 ```sh
-make run
+poetry run main
 ```
 
 ## References
