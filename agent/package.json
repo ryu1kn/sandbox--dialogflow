@@ -8,5 +8,9 @@
     "dialogflow": "^1.2.0",
     "fs-extra": "^9.0.0",
     "zip-folder": "^1.0.0"
+  },
+  "resolutions": {
+    "zip-folder/**/minimatch": "3.0.4",
+    "zip-folder/**/lodash": "4.17.15"
   }
 }
