@@ -23,13 +23,13 @@ poetry install
 ## Test
 
 ```sh
-poetry run pytest -s tests
+make test
 ```
 
 ## Usage
 
 ```sh
-python main.py sample-log-entry.txt
+make run
 ```
 
 ## References
