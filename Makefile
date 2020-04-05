@@ -30,10 +30,10 @@ tf-system/%: $(config_path) $(abspath __function.zip)
 $(abspath __function.zip): $(wildcard app/*)
 	cd app && ./build.sh
 
-.PHONY: deploy/agent
-agent/deploy: GOOGLE_APPLICATION_CREDENTIALS = $(abspath __dialogflow-agent-maker-key.json)
+.PHONY: agent/deploy
+agent/deploy: export GOOGLE_APPLICATION_CREDENTIALS = $(abspath __dialogflow-agent-maker-key.json)
 agent/deploy:
-	export WEBHOOK_URL=$$($(MAKE) tf-system/output | jq -r .function_endpoint.value) \
+	export WEBHOOK_URL=$$($(MAKE) tf-system/output | jq -r '.function_endpoint.value // ""') \
 	&& cd agent && yarn && node create-agent
 
 .PHONY: encrypt
