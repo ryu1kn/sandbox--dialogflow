@@ -4,8 +4,8 @@
   "shortDescription": "",
   "examples": "",
   "linkToDocs": "",
-  "disableInteractionLogs": true,
-  "disableStackdriverLogs": true,
+  "disableInteractionLogs": false,
+  "disableStackdriverLogs": false,
   "googleAssistant": {
     "googleAssistantCompatible": false,
     "project": "",
