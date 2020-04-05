@@ -9,3 +9,4 @@ __*
 !__*__.py
 node_modules
 venv/
+*-tmp
