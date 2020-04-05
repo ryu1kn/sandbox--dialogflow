@@ -1,5 +1,6 @@
 import os
 import shutil
+from textwrap import dedent
 
 from conversation_history import App
 
@@ -27,12 +28,13 @@ class FakeLogEntry:
         self.text_payload = sample_log_entry
 
 
-def test_app():
-    recreate_output_dir()
+recreate_output_dir()
 
+
+def test_app():
     App(lambda: [FakeLogEntry()], output_csv('base')).run()
 
-    assert_file(output_csv('base'), """\
-timestamp,score,intent_name,speech
-2020-04-01t22:44:37.445z,0.9,greeting.care-other,"I'm good, thank you."
-""")
+    assert_file(output_csv('base'), dedent("""\
+        timestamp,score,intent_name,speech
+        2020-04-01t22:44:37.445z,0.9,greeting.care-other,"I'm good, thank you."
+        """))
