@@ -34,9 +34,14 @@ poetry run main
 
 ## References
 
-* [Dialogflow V2 API](https://googleapis.dev/nodejs/dialogflow/latest/v2.AgentsClient.html)
-* [Lark - A modern parsing library for Python, implementing Earley & LALR(1) and an easy interface](https://github.com/lark-parser/lark)
-* [Lark Tutorial - JSON parser](https://github.com/lark-parser/lark/blob/7a13fb0f5b968046795fa9d221a38c2a34503605/docs/json_tutorial.md)
-* [`lark/grammars/common.lark`](https://github.com/lark-parser/lark/blob/d2f55fe3ba7b4bbc95ecdce2c06347cf2314ca4e/lark/grammars/common.lark)
+* Dialogflow
+  * [Dialogflow V2 API](https://googleapis.dev/nodejs/dialogflow/latest/v2.AgentsClient.html)
+* Lark
+  * [Lark - A modern parsing library for Python, implementing Earley & LALR(1) and an easy interface](https://github.com/lark-parser/lark)
+  * [Lark Tutorial - JSON parser](https://github.com/lark-parser/lark/blob/7a13fb0f5b968046795fa9d221a38c2a34503605/docs/json_tutorial.md)
+  * [`lark/grammars/common.lark`](https://github.com/lark-parser/lark/blob/d2f55fe3ba7b4bbc95ecdce2c06347cf2314ca4e/lark/grammars/common.lark)
+* Stackdriver
+  * [Client for Stackdriver Logging](https://googleapis.dev/python/logging/latest/gapic/v2/api.html)
+  * [Advanced logs queries](https://cloud.google.com/logging/docs/view/advanced-queries)
 
 [1]: https://stackoverflow.com/questions/55377439/is-there-a-way-to-retrieve-the-conversation-history-in-dialogflow
